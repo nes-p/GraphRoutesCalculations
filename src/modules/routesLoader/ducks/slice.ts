@@ -4,7 +4,7 @@ import { ILoadedRoutesState } from './interfaces';
 const initialState: ILoadedRoutesState = {
     actionStatus: 'IDLE',
     error: false,
-    edges: []
+    edges: {}
 }
 const loadRoutesSlice = createSlice({
     name: 'loadRoutes',

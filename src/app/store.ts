@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loadedRoutesReducer from "../modules/inputRouts/ducks";
+import deliveryCostReducer from "../modules/deliveryCost/ducks";
+import loadedRoutesReducer from "../modules/routesLoader/ducks";
+
 
 export const store = configureStore({
     reducer: {
         loadedRoutes: loadedRoutesReducer,
-
+        deliveryCost: deliveryCostReducer
     },
 });
 
