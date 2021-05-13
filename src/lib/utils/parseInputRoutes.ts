@@ -1,12 +1,7 @@
-export const parseInputRoutes = (sourceRoutes: string) => {
-    const routesMap = new Map();
-    const routesArray = sourceRoutes.split(',').map(item => item.trim());
-    routesArray.forEach(element => {
-        routesMap.set(element[0] + element[1], parseInt(element.slice(2)))
-    });
-    return Object.fromEntries(routesMap.entries());
+export const parseToWeightEdges = (sourceRoutes: string) => {
+    const weightEdgesArray = sourceRoutes.split(',').map(item => item.trim());
+    return weightEdgesArray;
 }
-
 export const parseCostRequest = (sourceRequest: string) => {
     const requestArray = sourceRequest.split('-');
     let previousNode = '';
@@ -19,6 +14,17 @@ export const parseCostRequest = (sourceRequest: string) => {
     }, [] as any)
     return edges;
 }
+
+
+export const parseInputRoutes = (sourceRoutes: string) => {
+    const routesArray = parseToWeightEdges(sourceRoutes);
+    const routesMap = new Map();
+    routesArray.forEach(element => {
+        routesMap.set(element[0] + element[1], parseInt(element.slice(2)))
+    });
+    return Object.fromEntries(routesMap.entries());
+}
+
 
 export const calculateDeliveryCost = (requestedRoutes: Array<string>, existedRoutes: any) => {
     const routesMap = new Map(Object.entries(existedRoutes));
@@ -33,3 +39,20 @@ export const calculateDeliveryCost = (requestedRoutes: Array<string>, existedRou
     return deliveryCost;
 
 }
+
+// export const parsetoGraph = (sourceRoutes: string) => {
+//     const routesArray = parseToWeightEdges(sourceRoutes);
+//     const vertices = addVertices(routesArray);
+//     const graph = new Map();
+//     vertices.forEach(vertice => {
+//         graph.set(vertice, []);
+//     });
+
+// }
+
+// const addVertices = (routesWeight: string[]) => {
+//     var vertices = new Set();
+//     routesWeight.forEach(route => vertices.add(route[0]));
+//     return vertices;
+// }
+
