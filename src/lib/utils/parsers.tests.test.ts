@@ -15,12 +15,12 @@ describe('parsersTests', () => {
             "EA2",
             "FD1"
         ]
-        expect(parseToWeightEdges(testRoutesInput)).toBe(result);
+        expect(parseToWeightEdges(testRoutesInput)).toStrictEqual(result);
     });
 
     it('possibleRoutes', () => {
         const testRequestInput = 'E-A-C-F';
         const result = ["EA", "AC", "CF"]
-        expect(parseCostRequest(testRequestInput)).toBe(result);
+        expect(parseCostRequest(testRequestInput)).toStrictEqual(result);
     });
 });

@@ -20,7 +20,7 @@ describe('graphTests', () => {
 
     it('possibleRoutes', () => {
         const option: Options = {
-            stopRestrict: 20,
+            costRestrict: 20,
             pathReuseRestrict: 2
         }
 
