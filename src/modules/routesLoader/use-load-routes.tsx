@@ -4,6 +4,7 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseInputRoutes, parseToWeightEdges } from "../../lib/utils/parseInputRoutes";
 import { loadedRoutesSelector } from "./ducks/selectors";
 import { deliveryCostResetAction } from "../deliveryCost/ducks";
+import { possibleRoutesCostResetAction } from "../possibleRoutes/ducks";
 
 const useLoadRoutes = () => {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const useLoadRoutes = () => {
         batch(() => {
             dispatch(loadRoutesSuccessAction({ parsedRoutes: parsedRoutes, weightEdges: weightEdges }));
             dispatch(deliveryCostResetAction());
+            dispatch(possibleRoutesCostResetAction());
         });
     }, [parsedRoutes, weightEdges, dispatch]
     );

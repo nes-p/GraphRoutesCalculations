@@ -38,13 +38,10 @@ class Graph {
     }
 
     async mapEdges() {
-
         const routesMap = new Map();
         this.weightEdges?.forEach(element => {
             routesMap.set(element[0] + element[1], parseInt(element.slice(2)))
         });
-        //return Object.fromEntries(routesMap.entries());
-
         this.edgesMap = routesMap;
     }
 
