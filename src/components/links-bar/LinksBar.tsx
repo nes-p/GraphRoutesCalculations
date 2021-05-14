@@ -12,7 +12,6 @@ export interface ILink {
     featureName?: string;
 }
 
-// All available links
 export const masterLinks: Array<ILink> = [
     {
         title: 'Home',

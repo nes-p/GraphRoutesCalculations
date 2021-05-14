@@ -28,7 +28,6 @@ const usePossibleRoutes = () => {
 
         }
         try {
-            debugger;
             const routesNumber = graph.possibleRoutes(route[0], route[1], option);
             dispatch(possibleRoutesSuccessAction(routesNumber));
         } catch (error) {

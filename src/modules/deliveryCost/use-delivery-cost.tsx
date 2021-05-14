@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Graph from "../../lib/utils/Graph";
 import { parseCostRequest } from "../../lib/utils/parseInputRoutes";
 import { loadedRoutesSelector, weightEdgesSelector } from "../routesLoader/ducks";
 import { deliveryCostSelector, deliveryErrorSelector } from "./ducks/selectors";
-import { deliveryCostFailureAction, deliveryCostSuccessAction } from "./ducks/slice";
+import { deliveryCostFailureAction, deliveryCostInitAction, deliveryCostResetAction, deliveryCostSuccessAction } from "./ducks/slice";
 
 const useDeliveryCost = () => {
     const dispatch = useDispatch();
@@ -14,11 +14,16 @@ const useDeliveryCost = () => {
     const errorDelivery = useSelector(deliveryErrorSelector);
     const weightEdges = useSelector(weightEdgesSelector);
     const graph = new Graph(weightEdges);
-    const calculateDelivery = () => {
-        const parsedInput = parseCostRequest(route);
-        if (!loadedEdges) {
-            dispatch(deliveryCostFailureAction('Routes are not loaded'))
+    useEffect(() => {
+        if (Object.keys(loadedEdges).length === 0) {
+            debugger;
+            dispatch(deliveryCostFailureAction('Routes are not loaded. Please, load them at the tab "LoadRoutes".'))
         }
+    }, [dispatch, loadedEdges])
+
+    const calculateDelivery = () => {
+        dispatch(deliveryCostInitAction());
+        const parsedInput = parseCostRequest(route);
         try {
             const delivery = graph.calculateDeliveryCost(parsedInput)
             dispatch(deliveryCostSuccessAction(delivery));
@@ -28,12 +33,17 @@ const useDeliveryCost = () => {
         }
 
     };
+    const resetCalc = () => {
+        dispatch(deliveryCostResetAction());
+
+    }
     return {
         route,
         setRoute,
         calculateDelivery,
         deliveryCostCalculated,
-        errorDelivery
+        errorDelivery,
+        resetCalc
     }
 }
 

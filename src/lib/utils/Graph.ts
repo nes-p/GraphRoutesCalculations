@@ -18,8 +18,6 @@ class Graph {
     }
 
     async initializeVertices() {
-
-
         const vertices = new Set<string>();
         this.weightEdges?.forEach(route => vertices?.add(route[0]));
         this.vertices = vertices;
@@ -41,7 +39,6 @@ class Graph {
 
     async mapEdges() {
 
-
         const routesMap = new Map();
         this.weightEdges?.forEach(element => {
             routesMap.set(element[0] + element[1], parseInt(element.slice(2)))
@@ -51,12 +48,11 @@ class Graph {
         this.edgesMap = routesMap;
     }
 
-    calculateDeliveryCost(requestedRoutes: Array<string>, existedRoutes?: any) {
-        //const routesMap = new Map(Object.entries(existedRoutes));
+    calculateDeliveryCost(requestedRoutes: Array<string>) {
         this.mapEdges();
         const routesMap = this.edgesMap;
         const deliveryCost =
-            requestedRoutes.reduce((acc, edge, index, array) => {
+            requestedRoutes.reduce((acc, edge) => {
                 const edgeCost = routesMap?.get(edge);
                 if (!edgeCost) {
                     throw new Error("No Such Route");
@@ -68,7 +64,6 @@ class Graph {
     }
 
     possibleRoutes(start: string, finish: string, options: Options) {
-        debugger;
         this.initializeGraph();
         const stopRestrict = (options && options.stopRestrict) || Infinity;
         const costRestrict = (options && options.costRestrict) || Infinity;
@@ -103,9 +98,7 @@ class Graph {
                 }
             }
 
-            processQueue = processQueue.sort((prev, next) => prev.cost - next.cost);
         }
-
         return possibleRoutes.filter((route) => route.graphNodes.length <= stopRestrict + 1).length;
 
     }

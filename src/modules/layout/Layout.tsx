@@ -5,7 +5,7 @@ import Header from '../../components/header/Header';
 import Container from '@material-ui/core/Container';
 
 
-const useStyles = makeStyles(({ spacing, typography, mixins, palette }) => ({
+const useStyles = makeStyles(({ spacing, typography, palette }) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',

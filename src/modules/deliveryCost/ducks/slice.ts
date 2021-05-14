@@ -17,6 +17,7 @@ const deliveryCostSlice = createSlice({
         deliveryCostSuccessAction: (state, { payload }) => {
             state.actionStatus = 'SUCCESS';
             state.deliveryCost = payload;
+            state.error = '';
         },
         deliveryCostFailureAction: (state, action) => {
             state.actionStatus = 'FAIL';

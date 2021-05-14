@@ -1,18 +1,26 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import { FC } from "react";
 import useLoadRoutes from "../use-load-routes";
+
+const useStyles = makeStyles(() => ({
+    tableColumnHeader: {
+        fontWeight: 600,
+    },
+}));
+
 const LoadedRoutes: FC = () => {
-    const { edges, resetLoaded } = useLoadRoutes();
-    const handleResetLoaded = () => { resetLoaded(); };
-    const hasEdges = edges.length > 0;
+    const classes = useStyles();
+    const { edges } = useLoadRoutes();
+    const hasEdges = Object.keys(edges).length > 0
+        && !isNaN((edges.pop()?.[1] as number));
     return (
         hasEdges ? (
             <TableContainer component={Paper} >
                 <Table>
                     <TableHead>
-                        <TableRow>
-                            <TableCell>Available Routes</TableCell>
-                            <TableCell>Cost</TableCell>
+                        <TableRow >
+                            <TableCell className={classes.tableColumnHeader}>Available Routes</TableCell>
+                            <TableCell className={classes.tableColumnHeader}>Cost</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -27,13 +35,9 @@ const LoadedRoutes: FC = () => {
                         }
                     </TableBody>
                 </Table>
-
-                <Button
-                    onClick={handleResetLoaded}
-                > Reset Loaded</Button>
-
             </TableContainer>
-        ) : <></>
+        ) : <>
+        </>
 
     );
 }

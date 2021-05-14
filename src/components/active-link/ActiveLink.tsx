@@ -2,14 +2,15 @@ import React, { FC, SyntheticEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(({ mixins, palette }) =>
+const useStyles = makeStyles(() =>
     createStyles({
         link: {
-            // ...mixins.availableLinkMixin,
+            color: '#fafafa',
+            padding: '5px',
             marginRight: '30px',
             textDecoration: 'none',
         },
-        active: { color: palette.primary.main },
+        active: { color: 'red' },
 
     })
 );

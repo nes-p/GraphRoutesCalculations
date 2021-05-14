@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { loadRoutesInitActionCreator, loadRoutesResetActionCreator, loadRoutesSuccessActionCreator } from "./ducks/slice";
-import { useDispatch, useSelector } from 'react-redux';
+import { loadRoutesInitAction, loadRoutesResetAction, loadRoutesSuccessAction } from "./ducks/slice";
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseInputRoutes, parseToWeightEdges } from "../../lib/utils/parseInputRoutes";
 import { loadedRoutesSelector } from "./ducks/selectors";
+import { deliveryCostResetAction } from "../deliveryCost/ducks";
 
 const useLoadRoutes = () => {
     const dispatch = useDispatch();
@@ -13,20 +14,22 @@ const useLoadRoutes = () => {
     const edges = (Object.entries(edgesSelected));
 
     const loadRoutes = () => {
-        dispatch(loadRoutesInitActionCreator);
+        dispatch(loadRoutesInitAction);
         const handledInput = parseToWeightEdges(routes);
         setWeightEdges(handledInput);
-        // const graph = new Graph(weightEdges);
         const edgesParsed = parseInputRoutes(handledInput);
         setParsedRoutes(edgesParsed);
     }
 
     const resetLoaded = () => {
-        dispatch(loadRoutesResetActionCreator());
+        dispatch(loadRoutesResetAction());
         setTimeout(() => setRoutes(''), 0);
     }
     useEffect(() => {
-        dispatch(loadRoutesSuccessActionCreator({ parsedRoutes: parsedRoutes, weightEdges: weightEdges }));
+        batch(() => {
+            dispatch(loadRoutesSuccessAction({ parsedRoutes: parsedRoutes, weightEdges: weightEdges }));
+            dispatch(deliveryCostResetAction());
+        });
     }, [parsedRoutes, weightEdges, dispatch]
     );
     return {

@@ -11,19 +11,19 @@ const loadRoutesSlice = createSlice({
     name: 'loadRoutes',
     initialState,
     reducers: {
-        loadRoutesInitActionCreator: (state) => {
+        loadRoutesInitAction: (state) => {
             state.actionStatus = 'LOADING';
         },
-        loadRoutesSuccessActionCreator: (state, { payload: { parsedRoutes, weightEdges } }) => {
+        loadRoutesSuccessAction: (state, { payload: { parsedRoutes, weightEdges } }) => {
             state.actionStatus = 'SUCCESS';
             state.edges = parsedRoutes;
             state.weightEdges = weightEdges;
         },
-        loadRoutesFailureActionCreator: (state, action) => {
+        loadRoutesFailureAction: (state, action) => {
             state.actionStatus = 'FAIL';
             state.error = action.payload;
         },
-        loadRoutesResetActionCreator: () => initialState
+        loadRoutesResetAction: () => initialState
 
     }
 
@@ -32,8 +32,8 @@ const loadRoutesSlice = createSlice({
 export default loadRoutesSlice.reducer;
 
 export const {
-    loadRoutesInitActionCreator,
-    loadRoutesFailureActionCreator,
-    loadRoutesResetActionCreator,
-    loadRoutesSuccessActionCreator
+    loadRoutesInitAction,
+    loadRoutesFailureAction,
+    loadRoutesResetAction,
+    loadRoutesSuccessAction
 } = loadRoutesSlice.actions;
