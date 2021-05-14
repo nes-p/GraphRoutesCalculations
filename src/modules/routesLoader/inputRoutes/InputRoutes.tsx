@@ -6,6 +6,7 @@ import useLoadRoutes from "../use-load-routes";
 
 const InputRoutes: FC = () => {
     const { routes, setRoutes, loadRoutes } = useLoadRoutes();
+
     const handleInputRoutes = (event: any) => {
         setRoutes(event.target.value);
     }
