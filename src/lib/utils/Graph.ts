@@ -110,7 +110,7 @@ interface Route {
     cost: number
 }
 export interface Options {
-    stopRestrict: number,
-    costRestrict: number,
-    pathReuseRestrict: number
+    stopRestrict?: number,
+    costRestrict?: number,
+    pathReuseRestrict?: number
 }
