@@ -66,23 +66,23 @@ class Graph {
         const costRestrict = (options && options.costRestrict) || Infinity;
         const pathReuseRestrict = (options && options.pathReuseRestrict) || 1;
 
-        let possibleRoutes = [];
-        let processQueue: Route[] = [{ graphNodes: [start], paths: {}, cost: 0 }];
+        const possibleRoutes = [];
+        const processQueue: Route[] = [{ graphNodes: [start], paths: {}, cost: 0 }];
 
         while (true) {
-            let route = processQueue.shift();
+            const route = processQueue.shift();
             if (!route) break;
 
-            let lastVertice = route.graphNodes[route.graphNodes.length - 1];
+            const lastVertice = route.graphNodes[route.graphNodes.length - 1];
 
             if (route.cost !== 0 && lastVertice === finish) {
                 if (route.cost < costRestrict) possibleRoutes.push(route);
                 if (pathReuseRestrict === 1) continue;
             }
 
-            let verticesCurrent = this.graph?.get(lastVertice);
+            const verticesCurrent = this.graph?.get(lastVertice);
             if (!verticesCurrent) continue;
-            let edgeVertices = Object.fromEntries(verticesCurrent);
+            const edgeVertices = Object.fromEntries(verticesCurrent);
 
             for (let vertice in edgeVertices) {
                 if (!route.paths[`${lastVertice}${vertice}`] || route.paths[`${lastVertice}${vertice}`] <= pathReuseRestrict) {
@@ -96,7 +96,7 @@ class Graph {
             }
 
         }
-        return possibleRoutes.filter((route) => route.graphNodes.length <= stopRestrict + 1).length;
+        return possibleRoutes.filter((route) => route.graphNodes.length < stopRestrict).length;
 
     }
 
