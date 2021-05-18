@@ -16,11 +16,3 @@ export const parseCostRequest = (sourceRequest: string) => {
 }
 
 
-export const parseInputRoutes = (routesArray: string[]) => {
-    const routesMap = new Map();
-    routesArray.forEach(element => {
-        routesMap.set(element[0] + element[1], parseInt(element.slice(2)))
-    });
-    return Object.fromEntries(routesMap.entries());
-}
-

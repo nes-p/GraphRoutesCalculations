@@ -7,6 +7,7 @@ class Graph {
 
     constructor(weightEdges: Array<string>) {
         this.weightEdges = weightEdges;
+        this.parseEdges();
     }
 
     async parseEdges() {

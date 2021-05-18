@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { loadRoutesInitAction, loadRoutesResetAction, loadRoutesSuccessAction } from "./ducks/slice";
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { parseInputRoutes, parseToWeightEdges } from "../../lib/utils/parseInputRoutes";
+import { parseToWeightEdges } from "../../lib/utils/parseInputRoutes";
 import { loadedRoutesSelector } from "./ducks/selectors";
 import { deliveryCostResetAction } from "../deliveryCost/ducks";
 import { possibleRoutesCostResetAction } from "../possibleRoutes/ducks";
+import Graph from "../../lib/utils/Graph";
 
 const useLoadRoutes = () => {
     const dispatch = useDispatch();
@@ -18,8 +19,8 @@ const useLoadRoutes = () => {
         dispatch(loadRoutesInitAction);
         const handledInput = parseToWeightEdges(routes);
         setWeightEdges(handledInput);
-        const edgesParsed = parseInputRoutes(handledInput);
-        setParsedRoutes(edgesParsed);
+        const graph = new Graph(handledInput);
+        setParsedRoutes(graph.edgesParsed);
     }
 
     const resetLoaded = () => {
